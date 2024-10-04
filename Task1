@@ -1,0 +1,114 @@
+/*
+TASK SIX: GAME DEVELOPMENT
+Create a simple game using C++, such as a text-based
+adventure or a graphical game using a library like SFML or SDL.
+The game should include core mechanics, player input, and
+scoring.
+*/
+
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+// Global variables for player state
+int playerHealth = 100;
+int playerScore = 0;
+bool hasSword = false;
+
+// Function to display player's current status
+void showStatus() {
+    cout << "\nPlayer Status:\n";
+    cout << "Health: " << playerHealth << "\n";
+    cout << "Score: " << playerScore << "\n";
+    if (hasSword) {
+        cout << "You have a sword.\n";
+    } else {
+        cout << "You are unarmed.\n";
+    }
+    cout << "\n";
+}
+
+// Function to simulate a battle with a monster
+void battleMonster() {
+    int monsterHealth = rand() % 50 + 1; // Random health between 1 and 50
+    cout << "A monster appears! It has " << monsterHealth << " health.\n";
+
+    while (monsterHealth > 0 && playerHealth > 0) {
+        cout << "Choose an action: (1) Attack, (2) Run: ";
+        int action;
+        cin >> action;
+
+        if (action == 1) {
+            int playerDamage = hasSword ? rand() % 25 + 10 : rand() % 15 + 5; // More damage if you have a sword
+            monsterHealth -= playerDamage;
+            cout << "You hit the monster for " << playerDamage << " damage.\n";
+
+            if (monsterHealth > 0) {
+                int monsterDamage = rand() % 20 + 5;
+                playerHealth -= monsterDamage;
+                cout << "The monster hits you for " << monsterDamage << " damage.\n";
+            }
+        } else if (action == 2) {
+            cout << "You ran away from the monster.\n";
+            return; // Exit the function if the player runs away
+        }
+
+        if (playerHealth <= 0) {
+            cout << "You have been defeated by the monster...\n";
+            return;
+        }
+
+        if (monsterHealth <= 0) {
+            cout << "You defeated the monster!\n";
+            playerScore += 100;
+            return;
+        }
+    }
+}
+
+// Function to simulate treasure discovery
+void findTreasure() {
+    int treasureValue = rand() % 100 + 1; // Random treasure between 1 and 100
+    cout << "You found a treasure worth " << treasureValue << " points!\n";
+    playerScore += treasureValue;
+}
+
+// Main game loop
+void exploreDungeon() {
+    while (playerHealth > 0) {
+        cout << "You are in a dark dungeon. Choose a direction: (1) Left, (2) Right, (3) Forward, (4) Backward: ";
+        int choice;
+        cin >> choice;
+
+        int event = rand() % 3; // Random event: 0 = monster, 1 = treasure, 2 = sword
+
+        if (event == 0) {
+            battleMonster();
+        } else if (event == 1) {
+            findTreasure();
+        } else if (event == 2 && !hasSword) {
+            cout << "You found a sword!\n";
+            hasSword = true;
+        } else {
+            cout << "You found nothing...\n";
+        }
+
+        showStatus();
+    }
+
+    cout << "Game Over. Your final score is: " << playerScore << "\n";
+}
+
+int main() {
+    srand(static_cast<unsigned int>(time(0))); // Seed random number generator
+
+    cout << "Welcome to the Dungeon Adventure Game!\n";
+    cout << "Your goal is to explore the dungeon, fight monsters, and collect treasure.\n\n";
+
+    exploreDungeon();
+
+    return 0;
+}
