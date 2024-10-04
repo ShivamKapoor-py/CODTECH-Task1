@@ -1,9 +1,9 @@
-Name: SHIVAM KAPOOR
-Company: CODTECH IT SOLUTIONS
-ID: CT08DS8658
-Domain: C++ PROGRAMMING
-Duration: OCTOBER 5th, 2024 to NOVEMBER 5th, 2024
-Mentor: Neela Santhosh Kumar
+**Name:** SHIVAM KAPOOR
+**Company:** CODTECH IT SOLUTIONS
+**ID:** CT08DS8658
+**Domain:** C++ PROGRAMMING
+**Duration:** OCTOBER 5th, 2024 to NOVEMBER 5th, 2024
+**Mentor:** Neela Santhosh Kumar
 
 Overview of the Project
 
